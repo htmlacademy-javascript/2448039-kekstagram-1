@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Дарья Подъяблонская](https://up.htmlacademy.ru/javascript-individual/1/user/2448039).
-* Наставник: [Анна Лисененкова] (https://htmlacademy.ru/profile/ankhena).
+* Наставник: [Анна Лисененкова](https://htmlacademy.ru/profile/ankhena).
 
 ---
 
