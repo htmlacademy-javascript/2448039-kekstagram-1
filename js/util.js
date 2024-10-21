@@ -32,4 +32,7 @@ const getUniqueRandomId = (min, max) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(1, elements.length - 1)];
 
-export {getRandomInteger, getIdGenerator, getRandomArrayElement, getUniqueRandomId};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export {isEscapeKey, isEnterKey, getRandomInteger, getIdGenerator, getRandomArrayElement, getUniqueRandomId};
