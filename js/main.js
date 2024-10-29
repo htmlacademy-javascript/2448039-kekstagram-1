@@ -1,6 +1,6 @@
 import {getArrayPhoto} from './data.js';
 import './thumbnail.js';
 import './big-picture.js';
-import './picture-modal.js';
+import {renderPictures} from './picture-modal.js';
 
-getArrayPhoto();
+renderPictures(getArrayPhoto());
