@@ -69,10 +69,10 @@ const createPhoto = () => ({
   id: generatePhotoId(),
   url: `photos/${generateUrl()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger (LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-  comments: Array.from({length: getRandomInteger (1, COMMENT_COUNT)}, createComment),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  comments: Array.from({length: getRandomInteger(1, COMMENT_COUNT)}, createComment),
 });
 
 const getArrayPhoto = () => Array.from({length: PHOTO_COUNT}, createPhoto);
 
-export {getArrayPhoto};
+export {getArrayPhoto, createComment, COMMENT_COUNT};
