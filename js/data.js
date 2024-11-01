@@ -54,13 +54,13 @@ const NAMES = [
 const generatePhotoId = getIdGenerator();
 const generateCommentId = getIdGenerator();
 const generateUrl = getUniqueRandomId (1, PHOTO_COUNT);
-const generateAvatar = getUniqueRandomId (1, AVATAR_COUNT);
+//const generateAvatar = getUniqueRandomId (1, PHOTO_COUNT);
 
 const createMessage = () => Array.from({ length: getRandomInteger(1, 2) }, () => getRandomArrayElement(MESSAGES)).join(' ');
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${generateAvatar()}.svg.`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(NAMES),
 });
@@ -69,10 +69,10 @@ const createPhoto = () => ({
   id: generatePhotoId(),
   url: `photos/${generateUrl()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger (LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-  comments: Array.from({length: getRandomInteger (1, COMMENT_COUNT)}, createComment),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  comments: Array.from({length: getRandomInteger(1, COMMENT_COUNT)}, createComment),
 });
 
 const getArrayPhoto = () => Array.from({length: PHOTO_COUNT}, createPhoto);
 
-export {getArrayPhoto};
+export {getArrayPhoto, createComment};

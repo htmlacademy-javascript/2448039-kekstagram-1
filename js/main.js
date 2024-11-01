@@ -1,4 +1,4 @@
 import {getArrayPhoto} from './data.js';
-import './thumbnail.js';
+import {renderPictures} from './picture-modal.js';
 
-getArrayPhoto();
+renderPictures(getArrayPhoto());
