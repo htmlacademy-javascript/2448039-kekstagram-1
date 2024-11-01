@@ -12,9 +12,8 @@ const commentTemplate = document.querySelector('#comment').content.querySelector
 
 const createComment = ({avatar, name, message}) => {
   const comment = commentTemplate.cloneNode(true);
-
-  comment.querySelector('.social__picture img').src = avatar;
-  comment.querySelector('.social__picture img').alt = name;
+  comment.querySelector('.social__picture').src = avatar;
+  comment.querySelector('.social__picture').alt = name;
   comment.querySelector('.social__text').textContent = message;
 
   return comment;
@@ -26,6 +25,7 @@ const renderComments = (comments) => {
     const comment = createComment(commentElement);
     previewFragment.append(comment);
   });
+  commentList.innerHTML = '';
   commentList.append(previewFragment);
 };
 

@@ -54,13 +54,13 @@ const NAMES = [
 const generatePhotoId = getIdGenerator();
 const generateCommentId = getIdGenerator();
 const generateUrl = getUniqueRandomId (1, PHOTO_COUNT);
-const generateAvatar = getUniqueRandomId (1, AVATAR_COUNT);
+//const generateAvatar = getUniqueRandomId (1, PHOTO_COUNT);
 
 const createMessage = () => Array.from({ length: getRandomInteger(1, 2) }, () => getRandomArrayElement(MESSAGES)).join(' ');
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${generateAvatar()}.svg.`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(NAMES),
 });
@@ -75,4 +75,4 @@ const createPhoto = () => ({
 
 const getArrayPhoto = () => Array.from({length: PHOTO_COUNT}, createPhoto);
 
-export {getArrayPhoto, createComment, COMMENT_COUNT};
+export {getArrayPhoto, createComment};
