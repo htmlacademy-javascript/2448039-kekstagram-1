@@ -11,6 +11,7 @@ const commentList = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const PRIMER_COMMENT = 5;
 
+
 const createComment = ({avatar, name, message}) => {
   const comment = commentTemplate.cloneNode(true);
   comment.querySelector('.social__picture').src = avatar;
@@ -21,9 +22,10 @@ const createComment = ({avatar, name, message}) => {
 };
 
 let visibleComments = 0;
+let comments = [];
 
-
-const renderComments = (comments) => {
+const renderComments = (commentsArray) => {
+  comments = commentsArray.slice();
   visibleComments += PRIMER_COMMENT;
 
   if (visibleComments >= comments.length) {
@@ -42,9 +44,10 @@ const renderComments = (comments) => {
 
   commentList.innerHTML = '';
   commentList.append(previewFragment);
-  commentCount.innerHTML = `${visibleComments} из <span class="comments-count">${comments.length}</span> комментриев`;
-};
+  commentCount.innerHTML = `${visibleComments} из <span class="comments-count">${comments.length}</span> комментариев`;
 
+  return comments;
+};
 
 const renderPicturesValues = ({url, description, likes}) => {
   bigPictureElement.querySelector('.big-picture__img img').src = url;
@@ -61,6 +64,10 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const onCommentsLoaderClick = () => {
+  renderComments(comments);
+};
+
 const openBigPicture = (data) => {
   bigPictureElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
@@ -70,15 +77,14 @@ const openBigPicture = (data) => {
   renderPicturesValues(data);
   renderComments(data.comments);
 
-  commentsLoader.addEventListener('click', () => {
-    renderComments(data.comments);
-  });
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
 function closeBigPicture () {
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   visibleComments = 0;
 }
 
