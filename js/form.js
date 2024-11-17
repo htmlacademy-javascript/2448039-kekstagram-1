@@ -5,32 +5,32 @@ const bodyElement = document.querySelector('body');
 const chanelButton = document.querySelector('#upload-cancel');
 const uploadFile = document.querySelector('#upload-file');
 const form = document.querySelector('.img-upload__form');
-const hashtagField = document.querySelector('.text-hashtags');
-const commentField = document.querySelector('.text-description');
+const hashtagField = document.querySelector('.text__hashtags');
+const commentField = document.querySelector('.text__description');
 const HASHTAG_MAX_COUNT = 5;
 const VALIDATE_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const TEXT_ERROR = 'Неверно заполнен хэштег';
 
-const pristine = new Pristine (form, {
+const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
-  erorrTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__erorr-text'
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper__error-text',
 });
 
-const getValidCount = (hashtag) => hashtag.length <= HASHTAG_MAX_COUNT;
+const getValidCount = (hashtags) => hashtags.length <= HASHTAG_MAX_COUNT;
 
-const getUniqueHashtags = (hashtag) => {
-  const lowerCaseHashtags = hashtag.map((tag) => tag.tolowerCase());
+const getUniqueHashtags = (hashtags) => {
+  const lowerCaseHashtags = hashtags.map((tag) => tag.toLowerCase());
   return lowerCaseHashtags.length === new Set(lowerCaseHashtags).size;
 };
 
-const isValidHashtag = (hashtag) => VALIDATE_SYMBOLS.test(hashtag);
+const isValidHashtag = (tag) => VALIDATE_SYMBOLS.test(tag);
 
-function validateHashtags (value) {
-  const hashtag = value.trim().split('')
+const validateHashtags = (value) => {
+  const hashtags = value.trim().split(' ')
     .filter((tag) => tag.trim().length);
-  return getValidCount(hashtag) && getUniqueHashtags(hashtag) && hashtag.every(isValidHashtag);
-}
+  return getValidCount(hashtags) && getUniqueHashtags(hashtags) && hashtags.every(isValidHashtag);
+};
 
 pristine.addValidator(
   hashtagField,
@@ -74,7 +74,7 @@ const isFormFieldFocused = () =>
   document.activeElement === commentField;
 
 function onDocumentKeydown (evt) {
-  if (isEscapeKey(evt) && !isFormFieldFocused) {
+  if (isEscapeKey(evt) && !isFormFieldFocused()) {
     evt.preventDefault();
     closeRedactorModal();
   }
