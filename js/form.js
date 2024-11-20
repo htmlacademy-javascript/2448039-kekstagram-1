@@ -1,4 +1,5 @@
 import {isEscapeKey } from './util.js';
+import { resetScale } from './scale.js';
 
 const photoUpload = document.querySelector('.img-upload__overlay');
 const bodyElement = document.querySelector('body');
@@ -50,6 +51,7 @@ const closeRedactorModal = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
   form.reset();
   pristine.reset();
+  resetScale();
 };
 
 const onChanelButtonClick = () => {
