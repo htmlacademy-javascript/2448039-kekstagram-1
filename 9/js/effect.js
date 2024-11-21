@@ -1,5 +1,5 @@
 const valueElement = document.querySelector('.effect-level__value');
-const imageElement = document.querySelector('.img-upload__preview');
+const imageElement = document.querySelector('.img-upload__preview img');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effects = document.querySelector('.effects');
@@ -102,8 +102,9 @@ const updateSlider = () => {
 
   if (isDefault()) {
     closeSlider();
+  } else {
+    showSlider();
   }
-  showSlider();
 };
 
 const onEffectsChange = (evt) => {
