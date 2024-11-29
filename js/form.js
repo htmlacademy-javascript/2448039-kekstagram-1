@@ -1,6 +1,7 @@
 import {isEscapeKey, showAlert} from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effect.js';
+import { sendData } from './api.js';
 
 const photoUpload = document.querySelector('.img-upload__overlay');
 const bodyElement = document.querySelector('body');
@@ -90,22 +91,11 @@ const setUserFormSubmit = (onSuccess) => {
 
     const isValid = pristine.validate();
     if (isValid) {
-      const formData = new FormData(evt.target);
-
-      fetch('https://28.javascript.htmlacademy.pro/kekstagram',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      ).then((response) => {
-        if (response.ok) {
-          onSuccess();
-        } else {
-          showAlert ('Не удалось загрузить фото. Попробуйте ещё раз');
-        }
-      }).catch(() => {
-        showAlert('Не удалось загрузить фото. Попробуйте ещё раз');
-      });
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch((err) => {
+          showAlert(err.message);
+        });
     }
   });
 };
