@@ -10,9 +10,15 @@ const uploadFile = document.querySelector('#upload-file');
 const form = document.querySelector('.img-upload__form');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
 const HASHTAG_MAX_COUNT = 5;
 const VALIDATE_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const TEXT_ERROR = 'Неверно заполнен хэштег';
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -85,19 +91,31 @@ function onDocumentKeydown (evt) {
   }
 }
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
 const setUserFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
     if (isValid) {
+      blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
         .catch((err) => {
           showAlert(err.message);
-        });
+        })
+        .finally(unblockSubmitButton);
     }
   });
 };
 
-setUserFormSubmit(closeRedactorModal);
+export {setUserFormSubmit, closeRedactorModal};

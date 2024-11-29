@@ -54,7 +54,6 @@ const NAMES = [
 const generatePhotoId = getIdGenerator();
 const generateCommentId = getIdGenerator();
 const generateUrl = getUniqueRandomId (1, PHOTO_COUNT);
-//const generateAvatar = getUniqueRandomId (1, PHOTO_COUNT);
 
 const createMessage = () => Array.from({ length: getRandomInteger(1, 2) }, () => getRandomArrayElement(MESSAGES)).join(' ');
 
