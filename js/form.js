@@ -1,4 +1,4 @@
-import {isEscapeKey } from './util.js';
+import {isEscapeKey, showAlert} from './util.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effect.js';
 
@@ -83,3 +83,31 @@ function onDocumentKeydown (evt) {
     closeRedactorModal();
   }
 }
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      const formData = new FormData(evt.target);
+
+      fetch('https://28.javascript.htmlacademy.pro/kekstagram',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      ).then((response) => {
+        if (response.ok) {
+          onSuccess();
+        } else {
+          showAlert ('Не удалось загрузить фото. Попробуйте ещё раз');
+        }
+      }).catch(() => {
+        showAlert('Не удалось загрузить фото. Попробуйте ещё раз');
+      });
+    }
+  });
+};
+
+setUserFormSubmit(closeRedactorModal);
