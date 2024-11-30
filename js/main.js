@@ -1,8 +1,9 @@
 //import {getArrayPhoto} from './data.js';
 import {renderPictures} from './picture-modal.js';
-import { setUserFormSubmit, closeRedactorModal } from './form.js';
+import { setUserFormSubmit} from './form.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
+import { showSuccessMessage } from './message.js';
 
 getData()
   .then((pictures) => {
@@ -12,5 +13,5 @@ getData()
     showAlert(err.message);
   });
 
-setUserFormSubmit(closeRedactorModal);
+setUserFormSubmit(showSuccessMessage);
 //renderPictures(getArrayPhoto());

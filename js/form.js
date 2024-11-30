@@ -118,4 +118,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit, closeRedactorModal};
+export {setUserFormSubmit};
