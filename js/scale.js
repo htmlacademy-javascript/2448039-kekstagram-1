@@ -30,10 +30,15 @@ const onButtonScaleBiggerClick = () => {
   }
   scaleImage(newValue);
 };
+const addScaleEventListeners = () => {
+  buttonScaleSmaller.addEventListener('click', onButtonScaleSmallerClick);
+  buttonScaleBigger.addEventListener('click', onButtonScaleBiggerClick);
+};
 
-buttonScaleSmaller.addEventListener('click', onButtonScaleSmallerClick);
-buttonScaleBigger.addEventListener('click', onButtonScaleBiggerClick);
+const resetScale = () => {
+  scaleImage(DEFAULT_SCALE);
+  buttonScaleSmaller.removeEventListener('click', onButtonScaleSmallerClick);
+  buttonScaleBigger.removeEventListener('click', onButtonScaleBiggerClick);
+};
 
-const resetScale = () => scaleImage(DEFAULT_SCALE);
-
-export {resetScale};
+export {resetScale, addScaleEventListeners};

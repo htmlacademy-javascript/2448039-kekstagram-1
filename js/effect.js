@@ -116,12 +116,16 @@ const onEffectsChange = (evt) => {
   updateSlider();
 };
 
-sliderElement.noUiSlider.on('update', onSliderElementUpdate);
-effects.addEventListener('change', onEffectsChange);
+const addEffectsEventListners = () => {
+  sliderElement.noUiSlider.on('update', onSliderElementUpdate);
+  effects.addEventListener('change', onEffectsChange);
+};
 
 const resetEffects = () => {
   chosenEffect = DEFAULT_EFFECT;
+  sliderElement.noUiSlider.off('update', onSliderElementUpdate);
+  effects.removeEventListener('change', onEffectsChange);
   updateSlider();
 };
 
-export {resetEffects};
+export {resetEffects, addEffectsEventListners};

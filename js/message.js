@@ -20,4 +20,5 @@ function closeSuccessMessage (successElement) {
   successElement.remove();
 }
 
+
 export {showSuccessMessage};

@@ -1,6 +1,6 @@
 import {isEscapeKey, showAlert} from './util.js';
-import { resetScale } from './scale.js';
-import { resetEffects } from './effect.js';
+import { addScaleEventListeners, resetScale } from './scale.js';
+import { addEffectsEventListners, resetEffects } from './effect.js';
 import { sendData } from './api.js';
 
 const photoUpload = document.querySelector('.img-upload__overlay');
@@ -51,6 +51,8 @@ const openRedactorModal = () => {
   photoUpload.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  addScaleEventListeners();
+  addEffectsEventListners();
 };
 
 const closeRedactorModal = () => {
@@ -118,4 +120,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit};
+export {setUserFormSubmit, closeRedactorModal};
