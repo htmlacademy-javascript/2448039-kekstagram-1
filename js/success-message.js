@@ -1,4 +1,3 @@
-import { closeRedactorModal } from './form.js';
 import { isEscapeKey } from './util.js';
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -25,7 +24,7 @@ const showSuccessMessage = () => {
   const successButton = successElement.querySelector('.success__button');
   successButton.addEventListener('click', () => onSuccessButtonClick(successElement));
 
-  closeRedactorModal();
+  //closeRedactorModal();
 
   successElement.addEventListener('click', (evt) => {
     if (evt.target === successElement) {

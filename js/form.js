@@ -1,7 +1,8 @@
 import {isEscapeKey, showAlert} from './util.js';
 import { addScaleEventListeners, resetScale } from './scale.js';
 import { addEffectsEventListners, resetEffects } from './effect.js';
-import { sendData } from './api.js';
+import { sendData, ErrorText } from './api.js';
+import { showErrorMessage } from './error-message.js';
 
 const photoUpload = document.querySelector('.img-upload__overlay');
 const bodyElement = document.querySelector('body');
@@ -111,13 +112,22 @@ const setUserFormSubmit = (onSuccess) => {
     if (isValid) {
       blockSubmitButton();
       sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch((err) => {
-          showAlert(err.message);
+        .then(() => {
+          onSuccess(true);
+          closeRedactorModal();
+        })
+        .catch(() => {
+          showErrorMessage();
+          showAlert(ErrorText.SEND_DATA);
+          onSuccess(false);
         })
         .finally(unblockSubmitButton);
+    } else {
+      showAlert(ErrorText.SEND_DATA);
+      //showAlert('Пожалуйста, исправьте ошибки в форме и попробуйте снова.');
+      onSuccess(false);
     }
   });
 };
 
-export {setUserFormSubmit, closeRedactorModal};
+export {setUserFormSubmit};
