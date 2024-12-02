@@ -1,6 +1,8 @@
-import {isEscapeKey } from './util.js';
-import { resetScale } from './scale.js';
-import { resetEffects } from './effect.js';
+import {isEscapeKey, showAlert} from './util.js';
+import { addScaleEventListeners, resetScale } from './scale.js';
+import { addEffectsEventListners, resetEffects } from './effect.js';
+import { sendData, ErrorText } from './api.js';
+import { showErrorMessage } from './error-message.js';
 
 const photoUpload = document.querySelector('.img-upload__overlay');
 const bodyElement = document.querySelector('body');
@@ -9,9 +11,15 @@ const uploadFile = document.querySelector('#upload-file');
 const form = document.querySelector('.img-upload__form');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
 const HASHTAG_MAX_COUNT = 5;
 const VALIDATE_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const TEXT_ERROR = 'Неверно заполнен хэштег';
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -44,6 +52,8 @@ const openRedactorModal = () => {
   photoUpload.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  addScaleEventListeners();
+  addEffectsEventListners();
 };
 
 const closeRedactorModal = () => {
@@ -83,3 +93,40 @@ function onDocumentKeydown (evt) {
     closeRedactorModal();
   }
 }
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          onSuccess(true);
+          closeRedactorModal();
+        })
+        .catch(() => {
+          showErrorMessage();
+          showAlert(ErrorText.SEND_DATA);
+          onSuccess(false);
+        })
+        .finally(unblockSubmitButton);
+    } else {
+      showAlert(ErrorText.SEND_DATA);
+      onSuccess(false);
+    }
+  });
+};
+
+export {setUserFormSubmit};

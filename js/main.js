@@ -1,5 +1,22 @@
-import {getArrayPhoto} from './data.js';
-import {renderPictures} from './picture-modal.js';
-import './form.js';
+import { renderPictures } from './picture-modal.js';
+import { setUserFormSubmit} from './form.js';
+import { getData, ErrorText} from './api.js';
+import { showAlert} from './util.js';
+import { showSuccessMessage } from './success-message.js';
+import { showErrorMessage } from './error-message.js';
 
-renderPictures(getArrayPhoto());
+getData()
+  .then((pictures) => {
+    renderPictures(pictures);
+  })
+  .catch(() => {
+    showAlert(ErrorText.GET_DATA);
+  });
+
+setUserFormSubmit((success) => {
+  if (success) {
+    showSuccessMessage();
+  } else {
+    showErrorMessage();
+  }
+});
