@@ -1,4 +1,4 @@
-import {renderPictures} from './picture-modal.js';
+import { renderPictures } from './picture-modal.js';
 import { setUserFormSubmit} from './form.js';
 import { getData, ErrorText} from './api.js';
 import { showAlert} from './util.js';
