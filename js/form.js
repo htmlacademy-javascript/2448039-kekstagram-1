@@ -124,7 +124,6 @@ const setUserFormSubmit = (onSuccess) => {
         .finally(unblockSubmitButton);
     } else {
       showAlert(ErrorText.SEND_DATA);
-      //showAlert('Пожалуйста, исправьте ошибки в форме и попробуйте снова.');
       onSuccess(false);
     }
   });
