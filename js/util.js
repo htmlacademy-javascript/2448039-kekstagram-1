@@ -1,4 +1,4 @@
-const ALERT_SHOW_TIME = 3000;
+const ALERT_SHOW_TIME = 5000;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 const isEnterKey = (evt) => evt.key === 'Enter';

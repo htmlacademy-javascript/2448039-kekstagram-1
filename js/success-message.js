@@ -24,8 +24,6 @@ const showSuccessMessage = () => {
   const successButton = successElement.querySelector('.success__button');
   successButton.addEventListener('click', () => onSuccessButtonClick(successElement));
 
-  //closeRedactorModal();
-
   successElement.addEventListener('click', (evt) => {
     if (evt.target === successElement) {
       closeSuccessMessage(successElement);
