@@ -31,10 +31,10 @@ const showErrorMessage = () => {
   });
 };
 
-function closeErrorMessage (successElement) {
-  successElement.remove();
+function closeErrorMessage (errorElement) {
+  errorElement.remove();
   document.removeEventListener('keydown', (evt) => {
-    onDocumentKeydown(evt, successElement);
+    onDocumentKeydown(evt, errorElement);
   });
 }
 
