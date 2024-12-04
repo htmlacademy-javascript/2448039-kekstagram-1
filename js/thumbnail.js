@@ -1,4 +1,4 @@
-const container = document.querySelector('.pictures');
+//const container = document.querySelector('.pictures');
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const createThumbnail = ({url, likes, comments, description, id}) => {
@@ -13,7 +13,8 @@ const createThumbnail = ({url, likes, comments, description, id}) => {
   return thumbnail;
 };
 
-const renderThumbnails = (pictures) => {
+const renderThumbnails = (pictures, container) => {
+  container.querySelectorAll('.picture').forEach((element) => element.remove());
   const previewFragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const thumbnail = createThumbnail(picture);
