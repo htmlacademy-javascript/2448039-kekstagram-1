@@ -1,7 +1,7 @@
-import {isEscapeKey, showAlert} from './util.js';
+import { isEscapeKey } from './util.js';
 import { addScaleEventListeners, resetScale } from './scale.js';
 import { addEffectsEventListners, resetEffects } from './effect.js';
-import { sendData, ErrorText } from './api.js';
+import { sendData } from './api.js';
 import { showErrorMessage } from './error-message.js';
 
 const photoUpload = document.querySelector('.img-upload__overlay');
@@ -118,13 +118,9 @@ const setUserFormSubmit = (onSuccess) => {
         })
         .catch(() => {
           showErrorMessage();
-          showAlert(ErrorText.SEND_DATA);
           onSuccess(false);
         })
         .finally(unblockSubmitButton);
-    } else {
-      showAlert(ErrorText.SEND_DATA);
-      onSuccess(false);
     }
   });
 };
