@@ -1,7 +1,6 @@
 import { isEscapeKey } from './util.js';
 
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-let errorElement;
+const errorElement = document.querySelector('#error').content.querySelector('.error');
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -15,12 +14,7 @@ const onErrorButtonClick = () => {
 };
 
 const showErrorMessage = () => {
-  if (errorElement) {
-    return;
-  }
-  errorElement = errorTemplate.cloneNode(true);
   document.body.append(errorElement);
-
   document.addEventListener('keydown', onDocumentKeydown);
 
   const errorButton = errorElement.querySelector('.error__button');
@@ -34,10 +28,7 @@ const showErrorMessage = () => {
 };
 
 function closeErrorMessage () {
-  if (errorElement) {
-    errorElement.remove();
-    errorElement = null;
-  }
+  errorElement.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
