@@ -119,7 +119,6 @@ const setUserFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     document.removeEventListener('keydown', onDocumentKeydown);
-
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
@@ -137,4 +136,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit};
+export {setUserFormSubmit, closeRedactorModal};
