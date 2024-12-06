@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { closeRedactorModal } from './form.js';
 
 const errorElement = document.querySelector('#error').content.querySelector('.error');
 
@@ -30,6 +31,7 @@ const showErrorMessage = () => {
 function closeErrorMessage () {
   errorElement.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', closeRedactorModal);
 }
 
 export {showErrorMessage};
