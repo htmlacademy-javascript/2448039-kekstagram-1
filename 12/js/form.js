@@ -4,10 +4,13 @@ import { addEffectsEventListners, resetEffects } from './effect.js';
 import { sendData } from './api.js';
 import { showErrorMessage } from './error-message.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const photoUpload = document.querySelector('.img-upload__overlay');
 const bodyElement = document.querySelector('body');
 const chanelButton = document.querySelector('#upload-cancel');
 const uploadFile = document.querySelector('#upload-file');
+const preview = document.querySelector('.img-upload__preview img');
 const form = document.querySelector('.img-upload__form');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
@@ -71,7 +74,15 @@ const onChanelButtonClick = () => {
 };
 
 const onUploadFileChange = () => {
-  openRedactorModal();
+  const file = uploadFile.files[0];
+
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    preview.src = URL.createObjectURL(file);
+    openRedactorModal();
+  }
 };
 
 const onFormSubmit = (evt) => {
@@ -107,6 +118,7 @@ const unblockSubmitButton = () => {
 const setUserFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    document.removeEventListener('keydown', onDocumentKeydown);
 
     const isValid = pristine.validate();
     if (isValid) {
