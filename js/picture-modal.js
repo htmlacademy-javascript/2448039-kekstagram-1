@@ -15,7 +15,7 @@ const onContainerClick = (pictures) => (evt) => {
 
 const renderPictures = (pictures) => {
   renderThumbnails(pictures, container);
-  container.addEventListener('click', onContainerClick);
+  container.addEventListener('click', onContainerClick(pictures));
 };
 
 export {renderPictures};
