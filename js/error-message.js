@@ -1,41 +1,37 @@
 import { isEscapeKey } from './util.js';
+import { closeRedactorModal } from './form.js';
 
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorElement = document.querySelector('#error').content.querySelector('.error');
 
-const onDocumentKeydown = (evt, errorElement) => {
+const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeErrorMessage(errorElement);
+    closeErrorMessage();
   }
 };
 
-const onErrorButtonClick = (errorElement) => {
-  closeErrorMessage(errorElement);
+const onErrorButtonClick = () => {
+  closeErrorMessage();
 };
 
 const showErrorMessage = () => {
-  const errorElement = errorTemplate.cloneNode(true);
   document.body.append(errorElement);
-
-  document.addEventListener('keydown', (evt) => {
-    onDocumentKeydown(evt, errorElement);
-  });
+  document.addEventListener('keydown', onDocumentKeydown);
 
   const errorButton = errorElement.querySelector('.error__button');
-  errorButton.addEventListener('click', () => onErrorButtonClick(errorElement));
+  errorButton.addEventListener('click', onErrorButtonClick);
 
   errorElement.addEventListener('click', (evt) => {
     if (evt.target === errorElement) {
-      closeErrorMessage(errorElement);
+      closeErrorMessage();
     }
   });
 };
 
-function closeErrorMessage (errorElement) {
+function closeErrorMessage () {
   errorElement.remove();
-  document.removeEventListener('keydown', (evt) => {
-    onDocumentKeydown(evt, errorElement);
-  });
+  document.removeEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', closeRedactorModal);
 }
 
 export {showErrorMessage};
