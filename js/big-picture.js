@@ -11,7 +11,6 @@ const commentList = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const PRIMER_COMMENT = 5;
 
-
 const createComment = ({avatar, name, message}) => {
   const comment = commentTemplate.cloneNode(true);
   comment.querySelector('.social__picture').src = avatar;
@@ -36,6 +35,7 @@ const renderComments = (commentsArray) => {
   }
 
   const previewFragment = document.createDocumentFragment();
+
   for (let i = 0; i < visibleComments; i++) {
     const commentElement = comments[i];
     const comment = createComment(commentElement);

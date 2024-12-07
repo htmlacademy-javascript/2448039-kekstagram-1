@@ -2,7 +2,6 @@ const buttonScaleSmaller = document.querySelector('.scale__control--smaller');
 const buttonScaleBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
 const imageElement = document.querySelector('.img-upload__preview img');
-
 const STEP_SCALE = 25;
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
@@ -30,6 +29,7 @@ const onButtonScaleBiggerClick = () => {
   }
   scaleImage(newValue);
 };
+
 const addScaleEventListeners = () => {
   buttonScaleSmaller.addEventListener('click', onButtonScaleSmallerClick);
   buttonScaleBigger.addEventListener('click', onButtonScaleBiggerClick);
