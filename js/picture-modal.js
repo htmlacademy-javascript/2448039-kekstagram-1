@@ -2,8 +2,9 @@ import { renderThumbnails } from './thumbnail.js';
 import { openBigPicture } from './big-picture.js';
 
 const container = document.querySelector('.pictures');
+let pictures;
 
-const onContainerClick = (pictures) => (evt) => {
+const onContainerClick = (evt) => {
   const thumbnail = evt.target.closest('[data-thumbnail-id]');
   if (thumbnail) {
     const picture = pictures.find((item) =>
@@ -13,9 +14,10 @@ const onContainerClick = (pictures) => (evt) => {
   }
 };
 
-const renderPictures = (pictures) => {
+const renderPictures = (currentPictures) => {
+  pictures = currentPictures;
   renderThumbnails(pictures, container);
-  container.addEventListener('click', onContainerClick(pictures));
+  container.addEventListener('click', onContainerClick);
 };
 
 export {renderPictures};
